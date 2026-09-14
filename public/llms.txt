@@ -1,0 +1,17 @@
+# Shivchandar Kumar Sah — Full-Stack Engineer Portfolio
+
+> Personal portfolio of Shivchandar Kumar Sah, a full-stack engineer based in
+> Kathmandu, Nepal, specialising in React, Vue.js, Node.js, MongoDB, MySQL,
+> real-time systems, and AI-powered tools.
+
+- Portfolio: [https://shivchandarsah.github.io/](https://shivchandarsah.github.io/)
+- GitHub: [https://github.com/shivchandarsah](https://github.com/shivchandarsah)
+- LinkedIn: [https://www.linkedin.com/in/shivchandar-sah-394250296](https://www.linkedin.com/in/shivchandar-sah-394250296)
+- Support Hub AI (real-time AI support platform): [https://github.com/shivchandarsah/Support-Hub-AI](https://github.com/shivchandarsah/Support-Hub-AI)
+- Inventory Management System: [https://github.com/shivchandarsah/Inventory_Management_System](https://github.com/shivchandarsah/Inventory_Management_System)
+- SmartInvoice: [https://github.com/shivchandarsah/smart-invoice](https://github.com/shivchandarsah/smart-invoice)
+
+## Contact
+
+- Email: sahshivchandar14@gmail.com
+- Location: Kathmandu, Nepal
