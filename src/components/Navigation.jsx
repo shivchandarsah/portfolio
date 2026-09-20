@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { scrollToSection } from '../utils/scroll';
+import { scrollToSection, setClickIntent, clearClickIntent, isClickIntentActive } from '../utils/scroll';
 
 const brandName = 'Shivchandar';
 
@@ -7,7 +7,7 @@ const navLinks = [
   { id: 'about',     label: 'About'     },
   { id: 'education', label: 'Education' },
   { id: 'work',      label: 'Work'      },
-  { id: 'stack',     label: 'Skills'    },
+  { id: 'skill',     label: 'Skills'    },
   { id: 'contact',   label: 'Contact'   },
 ];
 
@@ -30,22 +30,59 @@ export default function Navigation({ onOpenEngOS }) {
      Removed the scroll-handler getBoundingClientRect() loop that forced
      reflow on every scroll event. */
   useEffect(() => {
-    const ids = ['hero', 'about', 'education', 'work', 'stack', 'contact'];
-    const obs = new IntersectionObserver(
-      (entries) => {
-        if (clickIntentRef.current) return; // nav click in flight — skip
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible.length > 0) setActiveSection(visible[0].target.id);
-      },
-      { rootMargin: '-20% 0px -60% 0px', threshold: 0 },
-    );
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) obs.observe(el);
-    });
-    return () => obs.disconnect();
+    const ids = ['hero', 'about', 'education', 'work', 'skill', 'contact'];
+
+    const setupObserver = () => {
+      const sections = {};
+      ids.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) sections[id] = el;
+      });
+
+      // Wait until ALL sections are in the DOM before setting up the observer
+      if (Object.keys(sections).length < ids.length) return false;
+
+      // Disconnect previous observer if it exists
+      if (window._sectionObserver) {
+        window._sectionObserver.disconnect();
+      }
+
+      const obs = new IntersectionObserver(
+        (entries) => {
+          if (clickIntentRef.current) return; // nav click in flight — skip
+          if (isClickIntentActive()) return;    // skill-card / non-nav interaction in flight
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+          if (visible.length > 0) {
+            const newId = visible[0].target.id;
+            setActiveSection(newId);
+          }
+        },
+        { rootMargin: '-40% 0px -55% 0px', threshold: 0 },
+      );
+      Object.values(sections).forEach((el) => obs.observe(el));
+      window._sectionObserver = obs;
+      return true;
+    };
+
+    // Try to set up immediately
+    const ready = setupObserver();
+
+    // If sections aren't all loaded yet (lazy-loaded), poll until they are
+    if (!ready) {
+      const poll = setInterval(() => {
+        if (setupObserver()) clearInterval(poll);
+      }, 200);
+      return () => clearInterval(poll);
+    }
+
+    return () => {
+      if (window._sectionObserver) {
+        window._sectionObserver.disconnect();
+        window._sectionObserver = null;
+      }
+    };
   }, []);
 
   /* URL bar stays in sync with the visible section. Fires only when
@@ -69,6 +106,7 @@ export default function Navigation({ onOpenEngOS }) {
      the page scrolls. The IntersectionObserver takes over
      once scrolling settles). */
   const scrollTo = (id) => {
+    setClickIntent(id);
     scrollToSection(id);
     setActiveSection(id);
     /* Lock out IO + scroll-event overrides during smooth-scroll animation.
@@ -76,6 +114,7 @@ export default function Navigation({ onOpenEngOS }) {
     clickIntentRef.current = id;
     setTimeout(() => {
       clickIntentRef.current = null;
+      clearClickIntent();
     }, 1500);
     setMobileMenuOpen(false);
   };

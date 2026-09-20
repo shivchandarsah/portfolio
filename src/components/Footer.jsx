@@ -19,7 +19,7 @@ const navCols = [
       { label: 'About',     id: 'about',     external: false },
       { label: 'Education', id: 'education', external: false },
       { label: 'Work',      id: 'work',      external: false },
-      { label: 'Skills',    id: 'stack',     external: false },
+      { label: 'Skills',    id: 'skill',     external: false },
       { label: 'Contact',   id: 'contact',   external: false },
     ],
   },

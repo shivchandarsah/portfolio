@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { loadGsap } from '../utils/anim';
+import { setClickIntent, clearClickIntent } from '../utils/scroll';
 
 /* ─────────────────────────────────────────────────────────────
    CATEGORIES, defines order, colour, and description shown
@@ -151,12 +152,15 @@ function RingProgress({ level, color, size = 52, animate }) {
    Animated counter
    ───────────────────────────────────────────────────────────── */
 function Counter({ target, run }) {
-  const [val, setVal] = useState(0);
+  const [val, setVal] = useState(target); // start at target; animate down‑up if needed, but render target immediately when not running
   const raf = useRef(null);
 
   useEffect(() => {
-    // val already initialises to 0; nothing to reset before the first run.
-    if (!run) return;
+    if (!run) {
+      setVal(target); // ensure correct value when animation is disabled
+      return;
+    }
+    setVal(0); // reset to 0 before animating up
     const start = performance.now();
     const dur   = 950;
     const tick  = (now) => {
@@ -243,6 +247,16 @@ export default function Skills() {
   useEffect(() => {
     let ctx = null;
     let cancelled = false;
+
+    // If the section is already in view when the component mounts,
+    // mark everything as visible immediately so rings/counters render.
+    const sectionEl = sectionRef.current;
+    if (sectionEl) {
+      const rect = sectionEl.getBoundingClientRect();
+      const isInView = rect.top < window.innerHeight * 0.85 && rect.bottom > 0;
+      if (isInView) setVisible(true);
+    }
+
     loadGsap().then(({ gsap, ScrollTrigger }) => {
       if (cancelled) return;
       ctx = gsap.context(() => {
@@ -253,7 +267,10 @@ export default function Skills() {
           onEnter: () => {
             setVisible(true);
             if (prefersReduced) return;
-            gsap.fromTo('.sv-item',
+            // Animate only the category sections (not the header/tabs/footer),
+            // so the heading and filter chips are visible immediately.
+            gsap.fromTo(
+              '.skills-category-group',
               { y: 24, opacity: 0 },
               { y: 0, opacity: 1, duration: 0.45, ease: 'power3.out', stagger: 0.035 }
             );
@@ -264,8 +281,13 @@ export default function Skills() {
     return () => { cancelled = true; if (ctx) ctx.revert(); };
   }, [prefersReduced]);
 
-  const handleClick = (id) =>
+  const handleClick = (id) => {
+    setClickIntent(id);
     setSelected((prev) => (prev === id ? null : id));
+    // Release the lock after the card hover animation settles so the
+    // IntersectionObserver can resume normal section tracking.
+    setTimeout(clearClickIntent, 350);
+  };
 
   /* Which categories to show based on filter */
   const visibleCategories = filter === 'All'
@@ -273,7 +295,7 @@ export default function Skills() {
     : CATEGORIES.filter((c) => c.id === filter);
 
   return (
-    <section ref={sectionRef} id="stack" className="section section-alt" aria-labelledby="skills-title">
+    <section ref={sectionRef} id="skill" className="section section-alt" aria-labelledby="skills-title">
       <div className="section-inner">
 
         {/* ── Header ── */}
@@ -322,7 +344,7 @@ export default function Skills() {
           {visibleCategories.map((cat) => {
             const catTechs = technologies.filter((t) => t.category === cat.id);
             return (
-              <div key={cat.id} className="sv-item">
+              <div key={cat.id} className="sv-item skills-category-group">
 
                 {/* Category header */}
                 <div className="flex items-start gap-3 mb-5">

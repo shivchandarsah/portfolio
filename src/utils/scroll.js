@@ -1,4 +1,27 @@
 /**
+ * Shared click-intent lock used by Navigation's IntersectionObserver to
+ * suppress URL-hash updates while a non-navigational interaction (e.g. skill
+ * card selection) is in flight.  Skills.jsx calls lock() / unlock() around
+ * its click handler; Navigation checks isLocked() before overriding the
+ * active section.
+ */
+const clickIntent = { locked: false, stack: null };
+
+export function setClickIntent(id) {
+  clickIntent.locked = true;
+  clickIntent.stack  = id;
+}
+
+export function clearClickIntent() {
+  clickIntent.locked = false;
+  clickIntent.stack  = null;
+}
+
+export function isClickIntentActive() {
+  return clickIntent.locked;
+}
+
+/**
  * Smooth-scroll to a page section and update the browser URL hash
  * without triggering a full page reload.
  *

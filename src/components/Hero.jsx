@@ -64,6 +64,7 @@ export default function Hero() {
   const [typed, setTyped] = useState(roles[0]);
   const [roleIdx, setRoleIdx] = useState(0);
   const [deleting, setDeleting] = useState(false);
+  const [showCaret, setShowCaret] = useState(true);
 
   /* Typewriter orchestration: schedules delete-after-type and role-advance.
      This effect only *plans* the next phase; the actual character typing is
@@ -73,22 +74,26 @@ export default function Hero() {
     const full = roles[roleIdx];
 
     if (!deleting && typed === full) {
-      const t = setTimeout(() => setDeleting(true), 1900);
+      const t = setTimeout(() => {
+        setDeleting(true);
+        setShowCaret(false); // hide caret during delete phase
+      }, 1900);
       return () => clearTimeout(t);
     }
     if (deleting && typed === '') {
       const t = setTimeout(() => {
         setRoleIdx((i) => (i + 1) % roles.length);
         setDeleting(false);
-      }, 300);
+        setShowCaret(true); // show caret for new role
+      }, 200);
       return () => clearTimeout(t);
     }
   }, [typed, deleting, roleIdx, prefersReduced]);
 
   /* Typewriter body: types or deletes one character per tick. The effect
-     only re-runs when the role changes (roleIdx) or the phase flips
-     (deleting), never on every character typed — typed is read but not
-     waited on, so each tick is a cheap setState, not a cascading effect. */
+     only re-runs when the role changes (roleIdx), the phase flips (deleting),
+     or the typed text changes — never on every character typed longer than
+     needed; each tick is a cheap setState. */
   useEffect(() => {
     if (prefersReduced) return;
     const full = roles[roleIdx];
@@ -102,7 +107,7 @@ export default function Hero() {
       );
     }, delay);
     return () => clearTimeout(t);
-  }, [deleting, roleIdx, prefersReduced]);
+  }, [typed, deleting, roleIdx, prefersReduced]);
 
   /* Build the visible portion of the current role string */
 
@@ -133,8 +138,10 @@ export default function Hero() {
               <div className="flex justify-center">
                 <span className="text-base md:text-lg font-semibold text-text-primary font-mono">
                   <span className="gradient-text">{typed}</span>
-                  <span className="hero-caret" aria-hidden="true">|</span>
                 </span>
+                {showCaret && (
+                  <span className="hero-caret ml-0.5" aria-hidden="true">|</span>
+                )}
               </div>
               <p className="flex items-center justify-center gap-1.5 text-sm text-text-muted">
                 <LocationIcon size={15} className="flex-shrink-0 text-accent" />
