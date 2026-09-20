@@ -4,7 +4,7 @@ import { scrollToSection } from '../utils/scroll';
 import { GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon, LocationIcon } from './icons';
 
 const heroData = {
-  name: 'Shivchandar Kumar Sah',
+  name: 'Shivchandar Sah',
   nameShort: 'Shivchandar',
   location: 'Kathmandu, Nepal',
   tagline: 'I enjoy turning ideas into real products, whether that’s a web app, a real-time platform, or an AI-powered tool. I care about building interfaces that feel good to use and backends that are reliable, secure, and ready to scale.',
