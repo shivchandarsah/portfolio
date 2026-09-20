@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://shivchandarsah.github.io/sitemap.xml
+Sitemap: https://shivchandarsah.com.np/sitemap.xml

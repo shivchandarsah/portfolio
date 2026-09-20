@@ -1,17 +1,50 @@
-# Shivchandar Kumar Sah — Full-Stack Engineer Portfolio
+# Shivchandar Sah — Full-Stack Engineer
 
-> Personal portfolio of Shivchandar Kumar Sah, a full-stack engineer based in
-> Kathmandu, Nepal, specialising in React, Vue.js, Node.js, MongoDB, MySQL,
-> real-time systems, and AI-powered tools.
+> Official profile and portfolio of Shivchandar Sah, a Full-Stack Engineer at CodeRunners Technologies, based in Kathmandu, Nepal. Specializes in React, Vue.js, JavaScript, Node.js, Express.js, MongoDB, MySQL, real-time systems, and AI-powered applications.
 
-- Portfolio: [https://shivchandarsah.github.io/](https://shivchandarsah.github.io/)
-- GitHub: [https://github.com/shivchandarsah](https://github.com/shivchandarsah)
-- LinkedIn: [https://www.linkedin.com/in/shivchandar-sah-394250296](https://www.linkedin.com/in/shivchandar-sah-394250296)
-- Support Hub AI (real-time AI support platform): [https://github.com/shivchandarsah/Support-Hub-AI](https://github.com/shivchandarsah/Support-Hub-AI)
-- Inventory Management System: [https://github.com/shivchandarsah/Inventory_Management_System](https://github.com/shivchandarsah/Inventory_Management_System)
-- SmartInvoice: [https://github.com/shivchandarsah/smart-invoice](https://github.com/shivchandarsah/smart-invoice)
+## Official Profile
+
+* Portfolio: https://shivchandarsah.com.np/
+* About: https://shivchandarsah.com.np/about
+* GitHub: https://github.com/shivchandarsah
+* LinkedIn: https://www.linkedin.com/in/shivchandar-sah-394250296
+* Email: [sahshivchandar14@gmail.com](mailto:sahshivchandar14@gmail.com)
+
+## Professional Profile
+
+* Name: Shivchandar Sah
+* Professional Title: Full-Stack Engineer
+* Current Role: Full-Stack Engineer at CodeRunners Technologies
+* Location: Kathmandu, Nepal
+* Primary Technologies: React, Vue.js, JavaScript, Node.js, Express.js, MongoDB, MySQL
+* Additional Expertise: REST APIs, WebSockets, Socket.IO, real-time applications, AI-powered applications, full-stack web development
+
+## Projects
+
+### Support Hub AI
+
+Real-time AI-powered customer support platform.
+
+* GitHub: https://github.com/shivchandarsah/Support-Hub-AI
+
+### Inventory Management System
+
+Full-stack inventory management application.
+
+* GitHub: https://github.com/shivchandarsah/Inventory_Management_System
+
+### SmartInvoice
+
+Invoice management application for creating and managing invoices.
+
+* GitHub: https://github.com/shivchandarsah/smart-invoice
+
+## Professional Identity
+
+Shivchandar Sah is a Full-Stack Engineer at CodeRunners Technologies, focused on building scalable web applications, real-time systems, and AI-powered software. His public professional profiles, portfolio, and software projects are connected through consistent professional information and links.
 
 ## Contact
 
-- Email: sahshivchandar14@gmail.com
-- Location: Kathmandu, Nepal
+* Email: [sahshivchandar14@gmail.com](mailto:sahshivchandar14@gmail.com)
+* Location: Kathmandu, Nepal
+* Official Website: https://shivchandarsah.com.np/
