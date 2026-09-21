@@ -1,6 +1,6 @@
 # Shivchandar Sah — Portfolio
 
-> **BCE Graduate · Full-Stack Engineer · MERN / MEVN**
+> **Computer Engineering Graduate · Full-Stack Engineer · MERN / MEVN**
 > Kathmandu, Nepal · [sahshivchandar14@gmail.com](mailto:sahshivchandar14@gmail.com) · +977-9825808450
 
 [![Live Portfolio](https://img.shields.io/badge/Live-shivchandarsah.com.np-10b981?style=flat-square\&logo=googlechrome)](https://shivchandarsah.com.np/)

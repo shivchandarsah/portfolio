@@ -1,6 +1,6 @@
 # Shivchandar Sah — Full-Stack Engineer
 
-> Official profile and portfolio of Shivchandar Sah, a Full-Stack Engineer at Code Runners Technologies Pvt. Ltd. in Kathmandu, Nepal. Specializes in React, Vue.js, JavaScript, Node.js, Express.js, MongoDB, MySQL, REST APIs, WebSockets, Socket.IO, real-time applications, and AI-powered software.
+> Official profile and portfolio of Shivchandar Sah, a Computer Engineering graduate and Full-Stack Engineer at Code Runners Technologies Pvt. Ltd. in Kathmandu, Nepal. Specializes in React, Vue.js, JavaScript, Node.js, Express.js, MongoDB, MySQL, REST APIs, WebSockets, Socket.IO, real-time applications, and AI-powered software.
 
 ## Official Profile
 
@@ -14,6 +14,7 @@
 
 * **Name:** Shivchandar Sah
 * **Professional Title:** Full-Stack Engineer
+* **Education:** Bachelor's in Computer Engineering
 * **Current Role:** Full-Stack Engineer at Code Runners Technologies Pvt. Ltd.
 * **Location:** Kathmandu, Nepal
 * **Primary Technologies:** React, Vue.js, JavaScript, Node.js, Express.js, MongoDB, MySQL
@@ -41,7 +42,7 @@ Invoice management application for creating, managing, and organizing invoices.
 
 ## Professional Identity
 
-Shivchandar Sah is a Full-Stack Engineer at Code Runners Technologies Pvt. Ltd. focused on building scalable web applications, real-time systems, REST APIs, and AI-powered software. His portfolio, GitHub repositories, LinkedIn profile, and software projects provide publicly connected information about his professional work and technical expertise.
+Shivchandar Sah is a Computer Engineering graduate and Full-Stack Engineer at Code Runners Technologies Pvt. Ltd. in Kathmandu, Nepal. He focuses on building scalable web applications, real-time systems, REST APIs, and AI-powered software. His portfolio, GitHub repositories, LinkedIn profile, and software projects provide publicly connected information about his professional work, education, and technical expertise.
 
 ## Contact
 

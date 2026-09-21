@@ -37,7 +37,7 @@ const timeline = [
     period:      '2022 - 2026',
     status:      'Completed',
     grade:       'GPA 3.24',
-    description: 'Graduated with a BCE in Computer Engineering. Four years of converting caffeine and late-night debugging sessions into production-grade full-stack applications, real-time platforms, and AI-powered tools. The degree is framed. The learning never stops.',
+    description: 'Graduated with a Bachelor of Computer Engineering. Four years of converting caffeine and late-night debugging sessions into production-grade full-stack applications, real-time platforms, and AI-powered tools. The degree is framed. The learning never stops.',
     color:       'accent',
     icon: <GraduationCapIcon className="w-5 h-5" strokeWidth={1.5} />,
   },
