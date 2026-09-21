@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { CHALLENGES } from './data.js';
+import { ArrowRightIcon, CheckIcon, CloseIcon, RotateCcwIcon } from '../components/icons';
 
 const CATEGORY_COLOR = {
   Security:     '#ef4444',
@@ -113,7 +114,7 @@ export default function TechnicalChallenges() {
                   <span className="w-5 h-5 rounded-full border flex-shrink-0 flex items-center justify-center text-[10px] font-bold mt-0.5"
                     style={{ borderColor: border, color: textC,
                       backgroundColor: (answered !== null && isCorrect) ? '#10b981' : (answered !== null && isChosen) ? '#ef4444' : 'transparent' }}>
-                    {answered !== null && isCorrect ? '✓' : answered !== null && isChosen ? '✗' : String.fromCharCode(65 + i)}
+                    {answered !== null && isCorrect ? <CheckIcon size={11} strokeWidth={3} /> : answered !== null && isChosen ? <CloseIcon size={11} strokeWidth={3} /> : String.fromCharCode(65 + i)}
                   </span>
                   <span className="text-sm leading-relaxed" style={{ color: textC }}>{opt}</span>
                 </button>
@@ -129,8 +130,9 @@ export default function TechnicalChallenges() {
                 border: `1px solid ${answered === challenge.correct ? 'rgba(16,185,129,0.25)' : 'rgba(239,68,68,0.25)'}`,
               }}>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-sm" style={{ color: answered === challenge.correct ? '#10b981' : '#ef4444' }}>
-                  {answered === challenge.correct ? '✓ Correct' : '✗ Not quite'}
+                <span className="font-bold text-sm inline-flex items-center gap-1.5" style={{ color: answered === challenge.correct ? '#10b981' : '#ef4444' }}>
+                  {answered === challenge.correct ? <CheckIcon size={15} /> : <CloseIcon size={15} />}
+                  {answered === challenge.correct ? 'Correct' : 'Not quite'}
                 </span>
                 {answered === challenge.correct && (
                   <span className="text-xs font-bold text-accent px-2 py-0.5 rounded-full bg-accent/15">
@@ -145,9 +147,19 @@ export default function TechnicalChallenges() {
           {/* Next button */}
           {answered !== null && (
             <button onClick={next}
-              className="w-full py-2.5 rounded-lg font-semibold text-sm text-black transition-all"
+              className="w-full py-2.5 rounded-lg font-semibold text-sm text-black transition-all inline-flex items-center justify-center gap-2"
               style={{ backgroundColor: color }}>
-              {idx + 1 >= filtered.length ? 'Restart Challenges ↺' : 'Next Challenge →'}
+              {idx + 1 >= filtered.length ? (
+                <>
+                  Restart Challenges
+                  <RotateCcwIcon size={14} />
+                </>
+              ) : (
+                <>
+                  Next Challenge
+                  <ArrowRightIcon size={14} />
+                </>
+              )}
             </button>
           )}
         </div>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { scrollToSection } from '../utils/scroll';
-import { GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon, LocationIcon } from './icons';
+import { ArrowRightIcon, GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon, LocationIcon } from './icons';
 
 const heroData = {
   name: 'Shivchandar Sah',
@@ -160,9 +160,7 @@ export default function Hero() {
               <a href="#work" onClick={(e) => { e.preventDefault(); scrollTo('work'); }} className="btn-primary"
                 aria-label="View my software projects in the work section">
                 View My Software Projects
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+                <ArrowRightIcon size={16} />
               </a>
               <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo('contact'); }} className="btn-secondary"
                 aria-label="Get in touch through the contact section">
@@ -174,7 +172,7 @@ export default function Hero() {
               {socialLinks.map((s) => (
                 <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-text-muted hover:text-accent transition-colors duration-200 text-sm font-medium"
-                  aria-label={`Shivchandar Kumar Sah on ${s.name}`}
+                  aria-label={`Shivchandar Sah on ${s.name}`}
                 >
                   <span className="w-[28px] h-[28px] rounded-lg border border-border flex items-center justify-center"
                     style={{ backgroundColor: 'rgba(94,234,212,0.10)' }}>

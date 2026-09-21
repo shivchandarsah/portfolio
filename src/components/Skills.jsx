@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { loadGsap } from '../utils/anim';
 import { setClickIntent, clearClickIntent } from '../utils/scroll';
+import { CodeIcon, DatabaseIcon, ServerIcon, SettingsIcon, ZapIcon } from './icons';
 
 /* ─────────────────────────────────────────────────────────────
    CATEGORIES, defines order, colour, and description shown
@@ -13,56 +14,35 @@ const CATEGORIES = [
     label: 'Frontend Development',
     color: '#61dafb',
     description: 'Building polished, reactive UIs with React and Vue across full-stack projects.',
-    icon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-      </svg>
-    ),
+    icon: <CodeIcon className="w-4 h-4" strokeWidth={1.5} />,
   },
   {
     id:    'Backend',
     label: 'Backend & APIs',
     color: '#5eead4',
     description: 'Node.js + Express REST APIs with JWT auth and role-based access control.',
-    icon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2" />
-      </svg>
-    ),
+    icon: <ServerIcon className="w-4 h-4" strokeWidth={1.5} />,
   },
   {
     id:    'Database',
     label: 'Database',
     color: '#f59e0b',
     description: 'MongoDB with Mongoose for NoSQL data, MySQL with Sequelize ORM for relational data.',
-    icon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
-      </svg>
-    ),
+    icon: <DatabaseIcon className="w-4 h-4" strokeWidth={1.5} />,
   },
   {
     id:    'Real-time',
     label: 'Real-time & AI',
     color: '#a78bfa',
     description: 'Live features with Socket.IO, peer video via WebRTC, and RAG-based AI integrations.',
-    icon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-      </svg>
-    ),
+    icon: <ZapIcon className="w-4 h-4" strokeWidth={1.5} />,
   },
   {
     id:    'DevOps',
     label: 'DevOps & Tooling',
     color: '#f05032',
     description: 'Git-based workflows, CI-style deploys to Vercel and Render, API testing with Postman.',
-    icon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    ),
+    icon: <SettingsIcon className="w-4 h-4" strokeWidth={1.5} />,
   },
 ];
 

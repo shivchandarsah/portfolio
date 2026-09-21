@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { GRAPH_NODES, GRAPH_EDGES } from './data.js';
+import { CircleIcon, DiamondIcon } from '../components/icons';
 
 const NODE_R = { project: 22, tech: 16 };
 
@@ -195,11 +196,14 @@ export default function KnowledgeGraph() {
                     fontWeight={isSelected(node.id) ? '700' : '500'}>
                     {node.label.length > 13 ? node.label.slice(0, 11) + '…' : node.label}
                   </text>
-                  <text x={node.x} y={node.y + 4} textAnchor="middle"
-                    fontSize={node.type === 'project' ? '10' : '8'}
-                    fill={node.color} fontFamily="Inter, sans-serif" fontWeight="700">
-                    {node.type === 'project' ? '◆' : '●'}
-                  </text>
+                  {node.type === 'project' ? (
+                    <polygon
+                      points={`${node.x},${node.y - 5} ${node.x + 5},${node.y} ${node.x},${node.y + 5} ${node.x - 5},${node.y}`}
+                      fill={node.color}
+                    />
+                  ) : (
+                    <circle cx={node.x} cy={node.y} r={3} fill={node.color} />
+                  )}
                 </g>
               );
             })}
@@ -252,10 +256,10 @@ export default function KnowledgeGraph() {
               <div className="mt-4 space-y-1.5 w-full text-left">
                 <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2">Legend</p>
                 <div className="flex items-center gap-2 text-xs text-text-secondary">
-                  <span className="text-text-secondary">◆</span><span>Project</span>
+                  <DiamondIcon size={12} filled /><span>Project</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-text-secondary">
-                  <span className="text-text-secondary">●</span><span>Technology</span>
+                  <CircleIcon size={12} filled /><span>Technology</span>
                 </div>
               </div>
             </div>

@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { loadGsap } from '../utils/anim';
+import {
+  ArrowDownIcon, ArrowRightIcon, BookOpenIcon, BotIcon, BriefcaseIcon, CodeIcon,
+  ExternalLinkIcon, FileTextIcon, GithubIcon, MonitorIcon, ZapIcon,
+} from './icons';
 
 /* ── Per-project preview metadata ───────────────────────────── */
 const PREVIEWS = {
@@ -8,42 +13,42 @@ const PREVIEWS = {
     accent: '#5eead4',
     layers: ['React.js', 'Socket.IO', 'Node.js / Express', 'MongoDB', 'Pinecone RAG'],
     badge:  'AI · Real-time',
-    icon:   '🤖',
+    icon:   <BotIcon size={26} strokeWidth={1.5} />,
     dots:   ['#5eead4', '#a78bfa', '#84cc16', '#47a248', '#6366f1'],
   },
   2: {
     accent: '#d99b3b',
     layers: ['React.js', 'JWT + RBAC', 'Node.js / Express', 'MySQL', 'Sequelize ORM'],
     badge:  'CRM · Automation',
-    icon:   '🏢',
+    icon:   <BriefcaseIcon size={26} strokeWidth={1.5} />,
     dots:   ['#61dafb', '#f59e0b', '#84cc16', '#4479a1', '#52b0e7'],
   },
   3: {
     accent: '#3b82f6',
     layers: ['React.js', 'Node.js / Express', 'MongoDB', 'JWT Auth'],
     badge:  'LMS · Open Source',
-    icon:   '📚',
+    icon:   <BookOpenIcon size={26} strokeWidth={1.5} />,
     dots:   ['#61dafb', '#84cc16', '#47a248', '#f59e0b'],
   },
   4: {
     accent: '#5eead4',
     layers: ['Vue.js', 'Node.js / Express', 'MongoDB', 'REST APIs'],
     badge:  'Invoicing · MEVN',
-    icon:   '🧾',
+    icon:   <FileTextIcon size={26} strokeWidth={1.5} />,
     dots:   ['#42b883', '#84cc16', '#47a248', '#5eead4'],
   },
   5: {
     accent: '#d99b3b',
     layers: ['C# / .NET', 'Windows Forms', 'Local Database'],
     badge:  'Desktop · Windows',
-    icon:   '🖥️',
+    icon:   <MonitorIcon size={26} strokeWidth={1.5} />,
     dots:   ['#9b59b6', '#3498db', '#f59e0b'],
   },
   6: {
     accent: '#5eead4',
     layers: ['React.js', 'Gemini AI', 'Node.js / Express', 'MySQL', 'TypeScript'],
     badge:  'AI · CRM · Analytics',
-    icon:   '⚡',
+    icon:   <ZapIcon size={26} strokeWidth={1.5} />,
     dots:   ['#61dafb', '#ea4335', '#84cc16', '#4479a1', '#3178c6'],
   },
 };
@@ -75,7 +80,7 @@ function ProjectPreview({ project }) {
       {/* Stack layer diagram */}
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 px-6">
         {/* Big icon */}
-        <div className="text-2xl mb-1 select-none">{meta.icon}</div>
+        <div className="mb-1 select-none" style={{ color: meta.accent }}>{meta.icon}</div>
 
         {/* Layer bars */}
         {meta.layers.map((layer, i) => (
@@ -117,10 +122,12 @@ function ProjectPreview({ project }) {
   );
 }
 
-const projects = [
+export const projects = [
   {
     id: 1,
+    slug: 'support-hub-ai',
     title: 'Support Hub AI',
+    inlineDetails: true, // expands in place like a form instead of opening /work/:slug
     category: 'Web Application',
     filter: 'web',
     image: '/screenshots/Ai_Agent-800.webp',
@@ -137,6 +144,7 @@ const projects = [
   },
   {
     id: 2,
+    slug: 'bolts-army',
     title: 'Bolts Army',
     category: 'Web Application',
     filter: 'web',
@@ -147,13 +155,16 @@ const projects = [
     highlights: ['Role-based dashboards', 'MySQL + Sequelize ORM', 'JWT authentication'],
     why: 'Why MySQL over MongoDB? CRM data is highly relational, customers, deals and invoices join constantly; Sequelize migrations kept the schema honest.',
     detail: 'A full-stack CRM platform built from scratch. React frontend with role-based dashboards feeding into a Node.js/Express REST API. MySQL data layer via Sequelize ORM. Integrated Google Gemini AI for an executive chatbot that injects live CRM context into multi-turn conversations, plus AI-powered CRM analysis, automated content generation and deal-intelligence scoring. Implements JWT authentication with fine-grained role-based access control across Admin, Manager, Sales Rep, Support Agent and User roles. Private repository.',
-    github: 'https://github.com/shivchandarsah',
-    live: '',
+    /* Live product, no public repository — so this card links to the live demo
+       instead of GitHub (null = no GitHub action is rendered). */
+    github: null,
+    live:   'https://boltsarmy.com/',
     featured: true,
     color: 'copper',
   },
   {
     id: 3,
+    slug: 'sikshamantra',
     title: 'Sikshamantra',
     category: 'Web Application',
     filter: 'web',
@@ -170,6 +181,7 @@ const projects = [
   },
   {
     id: 4,
+    slug: 'smartinvoice',
     title: 'SmartInvoice',
     category: 'Web Application',
     filter: 'web',
@@ -186,6 +198,7 @@ const projects = [
   },
   {
     id: 5,
+    slug: 'inventory-management',
     title: 'Inventory Management System',
     category: 'Desktop App',
     filter: 'desktop',
@@ -201,13 +214,14 @@ const projects = [
   },
   {
     id: 6,
+    slug: 'business-automation-crm',
     title: 'Business Automation CRM',
     category: 'Web Application',
     filter: 'web',
     image: '/screenshots/Business_automation-800.webp',
     description: 'Full-stack business automation CRM with AI-powered insights, role-based dashboards for leads, deals, projects, tasks and invoicing, plus a Google Gemini executive chatbot with live CRM context, AI CRM analysis, content generation and deal-intelligence scoring.',
     tags: ['React.js', 'Node.js', 'Express.js', 'MySQL', 'TypeScript'],
-    extra: ['Google Gemini AI', 'In Progress 🔨'],
+    extra: ['Google Gemini AI', 'In Progress'],
     highlights: [
       'AI executive chatbot with live CRM context',
       'Role-based dashboards (Admin → User)',
@@ -221,38 +235,161 @@ const projects = [
   },
 ];
 
-const filters = [
+export const filters = [
   { key: 'all',     label: 'All' },
   { key: 'web',     label: 'Web Apps' },
   { key: 'desktop', label: 'Desktop' },
 ];
 
-const colorMap = {
+export const colorMap = {
   emerald: { tag: 'tag',         dot: 'bg-accent',  icon: 'text-accent',  ring: 'ring-accent/20',  badge: 'bg-accent-dim text-accent border border-accent/20' },
   amber:   { tag: 'tag--amber',  dot: 'bg-amber',   icon: 'text-amber',   ring: 'ring-amber/20',   badge: 'bg-amber-dim text-amber border border-amber/20' },
   blue:    { tag: 'tag--blue',   dot: 'bg-blue',    icon: 'text-blue',    ring: 'ring-blue/20',    badge: 'bg-blue-dim text-blue border border-blue/20' },
   copper:  { tag: 'tag--amber',  dot: 'bg-amber',   icon: 'text-amber',   ring: 'ring-amber/20',   badge: 'bg-amber-dim text-amber border border-amber/20' },
 };
 
-function CategoryIcon({ category, className }) {
-  if (category === 'Desktop App') return (
-    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>
-  );
+/* ── Project actions (GitHub / Live Demo) — rendered identically on the
+   Work card and on the dedicated Project Details page. Only rows with a
+   real URL are shown, so e.g. Bolts Army shows Live Demo without GitHub. */
+
+export function ProjectActions({ project, buttonClassName = 'px-4 py-2' }) {
   return (
-    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-    </svg>
+    <div className="mt-3 flex flex-wrap gap-2">
+      {project.live && project.live !== project.github && (
+        <a
+          href={project.live}
+          target="_blank" rel="noopener noreferrer"
+          className={`btn-primary text-xs ${buttonClassName}`}
+          aria-label={`View live demo of ${project.title}`}
+        >
+          <ExternalLinkIcon size={14} />
+          Live Demo
+        </a>
+      )}
+      {project.github && (
+        <a
+          href={project.github}
+          target="_blank" rel="noopener noreferrer"
+          className={`text-xs ${buttonClassName} ${project.live && project.live !== project.github ? 'btn-secondary' : 'btn-primary'}`}
+          aria-label={`View ${project.title} on GitHub`}
+        >
+          <GithubIcon size={14} />
+          GitHub
+        </a>
+      )}
+    </div>
+  );
+}
+
+/* ── Project screenshot — the same large visual on the card and the
+   dedicated Project Details page (real image, styled preview fallback). */
+
+export function ProjectMedia({ project, className, imgClassName }) {
+  const [imgError, setImgError] = useState(false);
+  return (
+    <div className={`overflow-hidden ${className ?? ''}`}>
+      {project.image && !imgError ? (
+        <img
+          src={project.image}
+          srcSet={`${project.image.replace('-800.webp', '-480.webp')} 480w, ${project.image} 800w`}
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          alt={`${project.title} — ${project.category} screenshot`}
+          width="800" height="366"
+          className={imgClassName}
+          loading="lazy"
+          decoding="async"
+          onError={() => setImgError(true)}
+        />
+      ) : (
+        <ProjectPreview project={project} />
+      )}
+    </div>
+  );
+}
+
+export function getProjectBySlug(slug) {
+  return projects.find((p) => p.slug === slug) || null;
+}
+
+export function CategoryIcon({ category, className }) {
+  const Glyph = category === 'Desktop App' ? MonitorIcon : CodeIcon;
+  return <Glyph className={className} strokeWidth={1.5} size={20} />;
+}
+
+/* ── Inline details — for projects flagged `inlineDetails` (currently only
+   Support Hub AI). Renders the full detail content directly beneath the
+   card, like a simple extended form, instead of navigating to /work/:slug.
+   Reuses the same blocks as the dedicated page (category + status,
+   description, decision note, features, technologies, write-up, actions). */
+
+export function ProjectInlineDetails({ project }) {
+  const c = colorMap[project.color] || colorMap.emerald;
+  return (
+    <div className="pt-5 mt-5 border-t border-border space-y-4">
+      <div className="flex items-center gap-2 flex-wrap">
+        <div className="w-10 h-10 rounded-xl bg-bg-secondary border border-border flex items-center justify-center flex-shrink-0">
+          <CategoryIcon category={project.category} className={`w-5 h-5 ${c.icon}`} />
+        </div>
+        <span className="text-[10px] text-text-muted font-semibold uppercase tracking-wide">{project.category}</span>
+        {project.featured && (
+          <span className="copper-chip text-[10px] font-bold px-2.5 py-0.5 rounded-full">
+            Featured
+          </span>
+        )}
+        {project.building && (
+          <span className="flex items-center gap-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full"
+            style={{ backgroundColor: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.35)', color: '#10b981' }}>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
+            Building
+          </span>
+        )}
+      </div>
+
+      <p className="text-text-secondary text-sm leading-relaxed">{project.description}</p>
+
+      {project.why && (
+        <p className="text-xs text-text-muted leading-relaxed pl-3 border-l-2 border-accent/40 italic">
+          {project.why}
+        </p>
+      )}
+
+      {project.highlights && (
+        <div>
+          <p className="text-[10px] font-bold text-text-muted uppercase tracking-[0.15em] mb-2.5">
+            Key Features
+          </p>
+          <ul className="space-y-1.5">
+            {project.highlights.map((h) => (
+              <li key={h} className="flex items-center gap-2 text-xs text-text-secondary">
+                <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${c.dot}`} aria-hidden="true" />
+                {h}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div>
+        <p className="text-[10px] font-bold text-text-muted uppercase tracking-[0.15em] mb-2.5">
+          Technologies
+        </p>
+        <div className="flex flex-wrap gap-1.5">
+          {(project.tags || []).map((t) => <span key={t} className={c.tag}>{t}</span>)}
+          {(project.extra || []).map((t) => <span key={t} className="tag--muted">{t}</span>)}
+        </div>
+      </div>
+
+      <p className="text-xs text-text-secondary leading-relaxed">{project.detail || project.description}</p>
+
+      <ProjectActions project={project} buttonClassName="px-4 py-2" />
+    </div>
   );
 }
 
 function ProjectCard({ project, index }) {
   const cardRef        = useRef(null);
   const prefersReduced = useReducedMotion();
-  const [detailOpen, setDetailOpen] = useState(false);
-  const [imgError,   setImgError]   = useState(false);
-  const c    = colorMap[project.color] || colorMap.emerald;
+  const [expanded, setExpanded] = useState(false);
 
   /* Deferred reveal: GSAP loads only when a card mounts (Work is lazy),
      never on the Hero critical path. */
@@ -275,130 +412,51 @@ function ProjectCard({ project, index }) {
 
   return (
     <article ref={cardRef}
-      className={`card flex flex-col group h-full ${project.featured ? `ring-1 ${c.ring}` : ''}`}
+      className={`card flex flex-col group h-full ${project.featured ? `ring-1 ${colorMap[project.color]?.ring || colorMap.emerald.ring}` : ''}`}
     >
-      {/* Real screenshot — falls back to styled preview if image fails */}
-      <div className="-mx-[1.75rem] -mt-[1.75rem] mb-5 overflow-hidden rounded-t-xl">
-        {project.image && !imgError ? (
-          <img
-            src={project.image}
-            srcSet={`${project.image.replace('-800.webp', '-480.webp')} 480w, ${project.image} 800w`}
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            alt={`${project.title} — ${project.category} screenshot`}
-            width="800" height="366"
-            className="w-full aspect-[16/10] object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
-            loading="lazy"
-            decoding="async"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <ProjectPreview project={project} />
-        )}
-      </div>
+      <ProjectMedia
+        project={project}
+        className="-mx-[1.75rem] -mt-[1.75rem] mb-5 rounded-t-xl"
+        imgClassName="w-full aspect-[16/10] object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
+      />
 
-      <div className="flex items-start justify-between mb-5">
-        <div className="w-10 h-10 rounded-xl bg-bg-secondary border border-border flex items-center justify-center flex-shrink-0">
-          <CategoryIcon category={project.category} className={`w-5 h-5 ${c.icon}`} />
-        </div>
-        <div className="flex items-center gap-2">
-          {project.featured && (
-            <span className="copper-chip text-[10px] font-bold px-2.5 py-0.5 rounded-full">
-              Featured
-            </span>
-          )}
-          {project.building && (
-            <span className="flex items-center gap-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full"
-              style={{ backgroundColor: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.35)', color: '#10b981' }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
-              Building
-            </span>
-          )}
-          <span className="text-[10px] text-text-muted font-semibold uppercase tracking-wide">{project.category}</span>
-        </div>
-      </div>
-
+      {/* Project name — card shows screenshot, name, action links and the
+          Project Details link only. Long description, tech stack, features
+          and every other detail lives on the dedicated details page. */}
       <h3 className="font-display font-bold text-base text-text-primary mb-2 group-hover:text-accent transition-colors duration-200 tracking-tight">
         {project.title}
       </h3>
-      <p className="text-text-secondary text-sm leading-relaxed mb-4">{project.description}</p>
 
-      {project.why && (
-        <p className="text-xs text-text-muted leading-relaxed mb-4 pl-3 border-l-2 border-accent/40 italic">
-          {project.why}
-        </p>
-      )}
+      {/* Actions — always on the card, never hidden inside details */}
+      <ProjectActions project={project} buttonClassName="px-4 py-2" />
 
-      {project.highlights && (
-        <ul className="space-y-1.5 mb-5">
-          {project.highlights.map((h) => (
-            <li key={h} className="flex items-center gap-2 text-xs text-text-secondary">
-              <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${c.dot}`} aria-hidden="true" />
-              {h}
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <div className="flex flex-wrap gap-1.5 mb-5">
-        {project.tags.map((t) => <span key={t} className={c.tag}>{t}</span>)}
-        {project.extra && project.extra.map((t) => <span key={t} className="tag--muted">{t}</span>)}
-      </div>
-
-      <div className="pt-3 border-t border-border mt-auto">
-        <div className="flex items-center justify-between">
+      {/* Project Details — Support Hub AI expands in place like a simple
+          extended form; every other project opens /work/:slug. */}
+      <div className="mt-3 pt-3 border-t border-border">
+        {project.inlineDetails ? (
           <button
             type="button"
-            onClick={() => setDetailOpen(!detailOpen)}
-            className="text-[10px] font-bold text-text-muted uppercase tracking-widest text-left"
-            aria-expanded={detailOpen}
-            aria-controls={`project-detail-${project.id}`}
+            onClick={() => setExpanded((open) => !open)}
+            className="text-[10px] font-bold text-text-muted uppercase tracking-widest hover:text-accent transition-colors duration-200 inline-flex items-center gap-1.5"
+            aria-expanded={expanded}
+            aria-label={`${expanded ? 'Hide' : 'Show'} Project Details for ${project.title}`}
           >
-            Project Detail
+            Project Details
+            <ArrowDownIcon size={13} className={`transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`} />
           </button>
-          <svg
-            className={`w-4 h-4 text-text-muted transition-transform duration-200 ${detailOpen ? 'rotate-180' : ''}`}
-            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+        ) : (
+          <Link
+            to={`/work/${project.slug}`}
+            className="text-[10px] font-bold text-text-muted uppercase tracking-widest hover:text-accent transition-colors duration-200 inline-flex items-center gap-1.5"
+            aria-label={`Open Project Details for ${project.title}`}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
-
-        {detailOpen && (
-          <div
-            id={`project-detail-${project.id}`}
-            className="mt-2 text-xs text-text-secondary leading-relaxed"
-          >
-            {project.detail || project.description}
-          </div>
+            Project Details
+            <ArrowRightIcon size={13} />
+          </Link>
         )}
-
-        <div className="mt-3 flex flex-wrap gap-2">
-          {project.live && project.live !== project.github && (
-            <a
-              href={project.live}
-              target="_blank" rel="noopener noreferrer"
-              className="btn-primary text-xs px-4 py-2"
-              aria-label={`View live demo of ${project.title}`}
-            >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-              Live Demo
-            </a>
-          )}
-          <a
-            href={project.github || 'https://github.com/shivchandarsah'}
-            target="_blank" rel="noopener noreferrer"
-            className={`text-xs px-4 py-2 ${project.live && project.live !== project.github ? 'btn-secondary' : 'btn-primary'}`}
-            aria-label={`View ${project.title} on GitHub`}
-          >
-            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.305-.536-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-            </svg>
-            GitHub
-          </a>
-        </div>
       </div>
+
+      {project.inlineDetails && expanded && <ProjectInlineDetails project={project} />}
       </article>
   );
 }
@@ -441,7 +499,8 @@ export default function Work() {
             </h2>
             <a href="https://github.com/shivchandarsah" target="_blank" rel="noopener noreferrer"
               className="btn-ghost text-sm whitespace-nowrap self-start sm:self-auto">
-              All on GitHub →
+              All on GitHub
+              <ArrowRightIcon size={15} />
             </a>
           </div>
         </div>

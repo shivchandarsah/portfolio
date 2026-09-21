@@ -2,12 +2,15 @@ import { useState, useEffect, useRef } from 'react';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { scrollToSection } from '../utils/scroll';
 import { loadGsap } from '../utils/anim';
-import { GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon, MailIcon, LocationIcon, CheckIcon } from './icons';
+import {
+  GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon, MailIcon, LocationIcon,
+  CheckIcon, CheckCircleIcon, ChevronUpIcon,
+} from './icons';
 
 const contactDetails = [
-  { icon: <MailIcon size={20} className="text-accent" />, label: 'Email',        value: 'sahshivchandar14@gmail.com', href: 'mailto:sahshivchandar14@gmail.com' },
-  { icon: <LocationIcon size={20} className="text-accent" />, label: 'Location',     value: 'Kathmandu, Nepal',           href: null },
-  { icon: <CheckIcon size={20} className="text-accent" />, label: 'Availability', value: 'Open to opportunities',      href: null },
+  { icon: <MailIcon        size={20} className="text-accent" />, label: 'Email',        value: 'sahshivchandar14@gmail.com', href: 'mailto:sahshivchandar14@gmail.com' },
+  { icon: <LocationIcon    size={20} className="text-accent" />, label: 'Location',     value: 'Kathmandu, Nepal',           href: null },
+  { icon: <CheckCircleIcon size={20} className="text-accent" />, label: 'Availability', value: 'Open to opportunities',      href: null },
 ];
 
 const socialLinks = [
@@ -299,9 +302,7 @@ export default function Contact() {
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                     </svg>Sending…</>
                   ) : status === 'success' ? (
-                    <><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>Message sent!</>
+                    <><CheckIcon size={16} />Message sent!</>
                   ) : 'Send Message'}
                 </button>
 
@@ -322,9 +323,7 @@ export default function Contact() {
             className="flex flex-col items-center gap-2 text-text-muted hover:text-accent transition-colors duration-200 group"
             aria-label="Scroll back to top">
             <span className="text-[10px] uppercase tracking-[0.25em] font-semibold">Back to Top</span>
-            <svg className="w-4 h-4 group-hover:-translate-y-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-            </svg>
+            <ChevronUpIcon size={16} className="group-hover:-translate-y-1 transition-transform duration-200" />
           </button>
         </div>
       </div>

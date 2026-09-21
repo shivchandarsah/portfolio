@@ -1,11 +1,11 @@
 # Shivchandar Sah — Full-Stack Engineer
 
-> Official profile and portfolio of Shivchandar Sah, a Full-Stack Engineer at CodeRunners Technologies in Kathmandu, Nepal. Specializes in React, Vue.js, JavaScript, Node.js, Express.js, MongoDB, MySQL, REST APIs, WebSockets, Socket.IO, real-time applications, and AI-powered software.
+> Official profile and portfolio of Shivchandar Sah, a Full-Stack Engineer at Code Runners Technologies Pvt. Ltd. in Kathmandu, Nepal. Specializes in React, Vue.js, JavaScript, Node.js, Express.js, MongoDB, MySQL, REST APIs, WebSockets, Socket.IO, real-time applications, and AI-powered software.
 
 ## Official Profile
 
 * [Portfolio](https://shivchandarsah.com.np/)
-* [About](https://shivchandarsah.com.np/about)
+* [About](https://shivchandarsah.com.np/#about)
 * [GitHub](https://github.com/shivchandarsah)
 * [LinkedIn](https://www.linkedin.com/in/shivchandar-sah-394250296)
 * [Email](mailto:sahshivchandar14@gmail.com)
@@ -14,7 +14,7 @@
 
 * **Name:** Shivchandar Sah
 * **Professional Title:** Full-Stack Engineer
-* **Current Role:** Full-Stack Engineer at CodeRunners Technologies
+* **Current Role:** Full-Stack Engineer at Code Runners Technologies Pvt. Ltd.
 * **Location:** Kathmandu, Nepal
 * **Primary Technologies:** React, Vue.js, JavaScript, Node.js, Express.js, MongoDB, MySQL
 * **Additional Expertise:** REST APIs, WebSockets, Socket.IO, real-time systems, AI-powered applications, scalable web applications, and full-stack development
@@ -41,7 +41,7 @@ Invoice management application for creating, managing, and organizing invoices.
 
 ## Professional Identity
 
-Shivchandar Sah is a Full-Stack Engineer at CodeRunners Technologies focused on building scalable web applications, real-time systems, REST APIs, and AI-powered software. His portfolio, GitHub repositories, LinkedIn profile, and software projects provide publicly connected information about his professional work and technical expertise.
+Shivchandar Sah is a Full-Stack Engineer at Code Runners Technologies Pvt. Ltd. focused on building scalable web applications, real-time systems, REST APIs, and AI-powered software. His portfolio, GitHub repositories, LinkedIn profile, and software projects provide publicly connected information about his professional work and technical expertise.
 
 ## Contact
 

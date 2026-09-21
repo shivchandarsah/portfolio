@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback } from 'react';
 import { PROJECTS, ARCHITECTURES } from './data.js';
+import { ChevronRightIcon, CloseIcon, LayersIcon, LockIcon } from '../components/icons';
 
 const TYPE_COLORS = {
   client:   '#3b82f6',
@@ -194,9 +195,9 @@ export default function ArchitectureExplorer() {
                 <h3 className="font-bold text-white text-sm">{detail.title}</h3>
                 <button
                   onClick={() => setSelectedNode(null)}
-                  className="ml-auto text-text-muted hover:text-white text-xs p-1"
+                  className="ml-auto text-text-muted hover:text-white p-1"
                   aria-label="Close detail panel"
-                >✕</button>
+                ><CloseIcon size={14} /></button>
               </div>
 
               <div>
@@ -217,7 +218,7 @@ export default function ArchitectureExplorer() {
                   <ul className="space-y-1">
                     {detail.responsibilities.map((r, i) => (
                       <li key={i} className="flex items-start gap-1.5 text-xs text-text-secondary">
-                        <span style={{ color: detailColor }} className="mt-0.5 flex-shrink-0">▸</span>{r}
+                        <ChevronRightIcon size={12} className="mt-0.5 flex-shrink-0" style={{ color: detailColor }} />{r}
                       </li>
                     ))}
                   </ul>
@@ -230,7 +231,7 @@ export default function ArchitectureExplorer() {
                   <ul className="space-y-1">
                     {detail.security.map((s, i) => (
                       <li key={i} className="flex items-start gap-1.5 text-xs text-amber-300/80">
-                        <span className="mt-0.5 flex-shrink-0 text-amber-500">🔐</span>{s}
+                        <LockIcon size={12} className="mt-0.5 flex-shrink-0 text-amber-500" />{s}
                       </li>
                     ))}
                   </ul>
@@ -249,8 +250,10 @@ export default function ArchitectureExplorer() {
               className="rounded-xl border border-border h-full flex flex-col items-center justify-center p-6 text-center"
               style={{ backgroundColor: '#0f172a', minHeight: 180 }}
             >
-              <div className="w-10 h-10 rounded-xl mb-3 flex items-center justify-center text-xl"
-                style={{ backgroundColor: `${project.color}18` }}>🏗️</div>
+              <div className="w-10 h-10 rounded-xl mb-3 flex items-center justify-center"
+                style={{ color: project.color, backgroundColor: `${project.color}18` }}>
+                <LayersIcon size={20} strokeWidth={1.5} />
+              </div>
               <p className="text-text-secondary font-semibold text-sm mb-1">{project.title}</p>
               <p className="text-text-muted text-xs leading-relaxed max-w-xs">{project.tagline}</p>
               <p className="text-text-muted text-[10px] mt-3">Tap a node to explore its technical details</p>

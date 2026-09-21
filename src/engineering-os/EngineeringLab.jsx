@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { LAB_AUTH_STEPS, LAB_API_METHODS, LAB_DB_OPS } from './data.js';
+import { AppIcon, AlertTriangleIcon, ArrowRightIcon, CheckIcon, PlayIcon } from '../components/icons';
 
 /* ── Auth Flow Lab ─────────────────────────────────────────────── */
 function AuthFlowLab() {
@@ -31,9 +32,14 @@ function AuthFlowLab() {
           <p className="text-xs text-text-secondary mt-0.5">Visualise every step from login to protected resource access.</p>
         </div>
         <button onClick={start} disabled={running}
-          className="px-4 py-1.5 rounded-lg text-sm font-semibold text-black transition-all duration-200 disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-sm font-semibold text-black transition-all duration-200 disabled:opacity-50"
           style={{ backgroundColor: running ? '#475569' : '#10b981' }}>
-          {running ? 'Running…' : step >= 0 ? 'Replay ▶' : 'Start ▶'}
+          {running ? 'Running…' : (
+            <>
+              {step >= 0 ? 'Replay' : 'Start'}
+              <PlayIcon size={12} />
+            </>
+          )}
         </button>
       </div>
 
@@ -51,7 +57,7 @@ function AuthFlowLab() {
               }}>
               <span className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-[9px] font-bold mt-0.5"
                 style={{ backgroundColor: done ? s.color : '#1e293b', color: done ? '#000' : '#475569' }}>
-                {done ? '✓' : idx + 1}
+                {done ? <CheckIcon size={11} strokeWidth={3} /> : idx + 1}
               </span>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold" style={{ color: done ? s.color : '#64748b' }}>{s.label}</p>
@@ -66,9 +72,10 @@ function AuthFlowLab() {
       </div>
 
       {step >= LAB_AUTH_STEPS.length - 1 && !running && (
-        <div className="rounded-lg px-4 py-3 text-sm text-accent font-semibold text-center"
+        <div className="rounded-lg px-4 py-3 text-sm text-accent font-semibold inline-flex items-center gap-2 w-full justify-center"
           style={{ backgroundColor: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)' }}>
-          ✓ Authentication complete, user is authorised and has access
+          <CheckIcon size={15} />
+          Authentication complete, user is authorised and has access
         </div>
       )}
     </div>
@@ -128,9 +135,14 @@ function APIRequestLab() {
           </button>
         ))}
         <button onClick={fire} disabled={running}
-          className="ml-auto px-4 py-1.5 rounded-lg text-xs font-bold text-black disabled:opacity-50 transition-all"
+          className="ml-auto inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-xs font-bold text-black disabled:opacity-50 transition-all"
           style={{ backgroundColor: running ? '#475569' : m.color }}>
-          {running ? 'In flight…' : 'Fire Request ▶'}
+          {running ? 'In flight…' : (
+            <>
+              Fire Request
+              <PlayIcon size={11} />
+            </>
+          )}
         </button>
       </div>
 
@@ -139,7 +151,10 @@ function APIRequestLab() {
         style={{ backgroundColor: '#0f172a', border: '1px solid rgba(148,163,184,0.1)' }}>
         <span style={{ color: m.color }} className="font-bold">{m.method}</span>
         <span className="text-text-secondary ml-2">{m.example}</span>
-        <span className="ml-2 text-text-muted">→ {m.statusCode}</span>
+        <span className="ml-2 text-text-muted inline-flex items-center gap-1">
+          <ArrowRightIcon size={12} />
+          {m.statusCode}
+        </span>
       </div>
 
       {/* Pipeline — horizontal scroll on mobile to prevent jagged wrapping */}
@@ -161,7 +176,7 @@ function APIRequestLab() {
                 )}
               </div>
               {idx < API_PIPELINE.length - 1 && (
-                <span className="text-text-muted text-xs flex-shrink-0">→</span>
+                <ArrowRightIcon size={12} className="text-text-muted flex-shrink-0" />
               )}
             </div>
           ))}
@@ -221,9 +236,14 @@ function DatabaseLab() {
           </button>
         ))}
         <button onClick={run} disabled={running}
-          className="ml-auto px-4 py-1.5 rounded-lg text-xs font-bold text-black disabled:opacity-50 transition-all"
+          className="ml-auto inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-xs font-bold text-black disabled:opacity-50 transition-all"
           style={{ backgroundColor: running ? '#475569' : dbOp.color }}>
-          {running ? 'Running…' : 'Execute ▶'}
+          {running ? 'Running…' : (
+            <>
+              Execute
+              <PlayIcon size={11} />
+            </>
+          )}
         </button>
       </div>
 
@@ -250,7 +270,7 @@ function DatabaseLab() {
             }}>
             <span className="w-4 h-4 rounded-full flex-shrink-0 flex items-center justify-center text-[9px] font-bold"
               style={{ backgroundColor: stage >= idx ? dbOp.color : '#1e293b', color: stage >= idx ? '#000' : '#475569' }}>
-              {stage >= idx ? '✓' : idx + 1}
+              {stage >= idx ? <CheckIcon size={10} strokeWidth={3} /> : idx + 1}
             </span>
             <p className="text-xs font-semibold" style={{ color: stage >= idx ? dbOp.color : '#475569' }}>{s}</p>
             {stage === idx && running && <span className="w-1.5 h-1.5 rounded-full animate-pulse ml-auto" style={{ backgroundColor: dbOp.color }} />}
@@ -296,12 +316,20 @@ function RateLimiterLab() {
         <div>
           <h3 className="font-bold text-white text-sm">Rate Limiter Simulation</h3>
           <p className="text-xs text-text-secondary mt-0.5">Adjust requests/sec and see how a sliding-window rate limiter responds.</p>
-          <p className="text-[10px] text-amber-400/80 mt-1 font-semibold">⚠ SIMULATION, not real production data</p>
+          <p className="text-[10px] text-amber-400/80 mt-1 font-semibold inline-flex items-center gap-1.5">
+            <AlertTriangleIcon size={12} />
+            SIMULATION, not real production data
+          </p>
         </div>
         <button onClick={start} disabled={running}
-          className="px-4 py-1.5 rounded-lg text-sm font-bold text-black flex-shrink-0 disabled:opacity-50 transition-all"
+          className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-sm font-bold text-black flex-shrink-0 disabled:opacity-50 transition-all"
           style={{ backgroundColor: running ? '#475569' : '#a78bfa' }}>
-          {running ? 'Running…' : 'Simulate ▶'}
+          {running ? 'Running…' : (
+            <>
+              Simulate
+              <PlayIcon size={12} />
+            </>
+          )}
         </button>
       </div>
 
@@ -358,10 +386,10 @@ function RateLimiterLab() {
 
 /* ── Tab selector ──────────────────────────────────────────────── */
 const LABS = [
-  { id: 'auth',    label: 'Auth Flow',     icon: '🔐' },
-  { id: 'api',     label: 'API Request',   icon: '🔌' },
-  { id: 'db',      label: 'Database',      icon: '🗄️' },
-  { id: 'rate',    label: 'Rate Limiter',  icon: '⚡' },
+  { id: 'auth',    label: 'Auth Flow',     icon: 'lock' },
+  { id: 'api',     label: 'API Request',   icon: 'server' },
+  { id: 'db',      label: 'Database',      icon: 'database' },
+  { id: 'rate',    label: 'Rate Limiter',  icon: 'zap' },
 ];
 
 export default function EngineeringLab() {
@@ -378,7 +406,7 @@ export default function EngineeringLab() {
                 ? 'bg-bg-card border-border text-white'
                 : 'bg-transparent border-border text-text-secondary hover:text-text-primary hover:border-border'
             }`}>
-            <span>{lab.icon}</span>{lab.label}
+            <AppIcon name={lab.icon} size={14} />{lab.label}
           </button>
         ))}
       </div>

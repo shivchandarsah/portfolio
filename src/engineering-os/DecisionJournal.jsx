@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { DECISIONS } from './data.js';
+import { CheckIcon, ChevronDownIcon, ChevronRightIcon, ChevronUpIcon } from '../components/icons';
 
 const PROJECT_COLORS = {
   'Support Hub AI': '#10b981',
@@ -58,8 +59,8 @@ export default function DecisionJournal() {
                     style={{ backgroundColor: `${color}18`, color, border: `1px solid ${color}28` }}>
                     {dec.project}
                   </span>
-                  <span className="text-text-muted text-sm group-hover:text-text-secondary transition-colors flex-shrink-0">
-                    {isOpen ? '▲' : '▼'}
+                  <span className="text-text-muted group-hover:text-text-secondary transition-colors flex-shrink-0">
+                    {isOpen ? <ChevronUpIcon size={15} /> : <ChevronDownIcon size={15} />}
                   </span>
                 </div>
 
@@ -92,14 +93,14 @@ export default function DecisionJournal() {
                     <div className="flex flex-wrap gap-2">
                       {dec.options.map(opt => (
                         <span key={opt}
-                          className="text-xs px-2.5 py-1 rounded-lg font-medium"
+                          className="text-xs px-2.5 py-1 rounded-lg font-medium inline-flex items-center gap-1"
                           style={{
                             backgroundColor: opt === dec.chosen ? `${color}18` : 'rgba(148,163,184,0.06)',
                             color:           opt === dec.chosen ? color : '#64748b',
                             border:          `1px solid ${opt === dec.chosen ? color + '35' : 'rgba(148,163,184,0.1)'}`,
                             fontWeight:      opt === dec.chosen ? 700 : 400,
                           }}>
-                          {opt === dec.chosen && '✓ '}{opt}
+                          {opt === dec.chosen && <CheckIcon size={11} strokeWidth={3} />}{opt}
                         </span>
                       ))}
                     </div>
@@ -111,7 +112,7 @@ export default function DecisionJournal() {
                     <ul className="space-y-1.5">
                       {dec.reasons.map((r, i) => (
                         <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
-                          <span className="flex-shrink-0 mt-0.5" style={{ color }}>▸</span>
+                          <ChevronRightIcon size={12} className="flex-shrink-0 mt-0.5" style={{ color }} />
                           {r}
                         </li>
                       ))}

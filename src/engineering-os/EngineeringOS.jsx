@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { PROJECTS, DECISIONS, CHALLENGES } from './data.js';
+import { AppIcon, ArrowRightIcon, ArrowUpDownIcon, ChevronLeftIcon, CloseIcon, EnterIcon, SearchIcon } from '../components/icons';
 
 /* Lazy-load heavy modules to keep initial portfolio load fast */
 const ArchitectureExplorer = lazy(() => import('./ArchitectureExplorer.jsx'));
@@ -15,7 +16,7 @@ const MODULES = [
     id:          'architecture',
     title:       'Architecture Explorer',
     tagline:     'See how each application is structured, layer by layer.',
-    icon:        '🏗️',
+    icon:        'layers',
     color:       '#3b82f6',
     badge:       `${PROJECTS.length} projects`,
     description: 'Interactive architecture diagrams with animated connection lines. Click any node for technical details.',
@@ -25,7 +26,7 @@ const MODULES = [
     id:          'xray',
     title:       'Project X-Ray',
     tagline:     'Decompose every project from UI down to the database.',
-    icon:        '🔬',
+    icon:        'inspect',
     color:       '#10b981',
     badge:       `${PROJECTS.length} projects`,
     description: 'Peel back each system layer, frontend, API, auth, services, database, and understand the engineering decisions at each level.',
@@ -35,7 +36,7 @@ const MODULES = [
     id:          'lab',
     title:       'Engineering Lab',
     tagline:     'Interact with live simulations of real engineering flows.',
-    icon:        '⚗️',
+    icon:        'flask',
     color:       '#a78bfa',
     badge:       '4 experiments',
     description: 'Auth flow visualiser, API request pipeline, database operation tracer, and rate limiter simulator.',
@@ -45,7 +46,7 @@ const MODULES = [
     id:          'graph',
     title:       'Knowledge Graph',
     tagline:     'Explore how projects and technologies interconnect.',
-    icon:        '🕸️',
+    icon:        'network',
     color:       '#f59e0b',
     badge:       `${PROJECTS.length + 11} nodes`,
     description: 'Drag-and-drop force graph. Click a project to highlight its tech. Click a technology to see every project using it.',
@@ -55,7 +56,7 @@ const MODULES = [
     id:          'challenges',
     title:       'Technical Challenges',
     tagline:     'Test engineering knowledge across real-world scenarios.',
-    icon:        '🎯',
+    icon:        'target',
     color:       '#ef4444',
     badge:       `${CHALLENGES.length} challenges`,
     description: 'Security, architecture, database, and backend debugging challenges with XP scoring and detailed explanations.',
@@ -65,7 +66,7 @@ const MODULES = [
     id:          'decisions',
     title:       'Decision Journal',
     tagline:     'The reasoning behind every major technical choice.',
-    icon:        '📓',
+    icon:        'book',
     color:       '#06b6d4',
     badge:       `${DECISIONS.length} decisions`,
     description: 'Why Socket.IO? Why MySQL vs MongoDB? Why JWT? Read the real engineering thinking behind each decision.',
@@ -148,9 +149,7 @@ function CommandPalette({ onNavigate, onClose }) {
 
         {/* Search input */}
         <div className="flex items-center gap-3 px-4 py-3.5 border-b border-border">
-          <svg className="w-4 h-4 text-text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
-          </svg>
+          <SearchIcon size={16} className="text-text-muted flex-shrink-0" />
           <input ref={inputRef} value={query} onChange={onQueryChange} onKeyDown={handleKey}
             placeholder="Search Engineering OS…"
             className="flex-1 bg-transparent text-white text-sm outline-none placeholder-text-muted"
@@ -185,8 +184,14 @@ function CommandPalette({ onNavigate, onClose }) {
         </ul>
 
         <div className="px-4 py-2 border-t border-border flex items-center gap-4 text-[10px] text-text-muted">
-          <span><kbd className="font-mono">↑↓</kbd> navigate</span>
-          <span><kbd className="font-mono">↵</kbd> open</span>
+          <span className="inline-flex items-center gap-1.5">
+            <kbd className="font-mono inline-flex items-center"><ArrowUpDownIcon size={12} /></kbd>
+            navigate
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <kbd className="font-mono inline-flex items-center"><EnterIcon size={12} /></kbd>
+            open
+          </span>
           <span><kbd className="font-mono">Esc</kbd> close</span>
         </div>
       </div>
@@ -234,9 +239,9 @@ function HomeScreen({ onNavigate }) {
             >
               {/* Icon + badge */}
               <div className="flex items-start justify-between mb-4">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
-                  style={{ backgroundColor: `${mod.color}18` }}>
-                  {mod.icon}
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{ color: mod.color, backgroundColor: `${mod.color}18` }}>
+                  <AppIcon name={mod.icon} size={22} strokeWidth={1.5} />
                 </div>
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full"
                   style={{ backgroundColor: `${mod.color}12`, color: mod.color }}>
@@ -250,7 +255,7 @@ function HomeScreen({ onNavigate }) {
               <div className="flex items-center gap-1 text-xs font-semibold transition-colors duration-200"
                 style={{ color: mod.color }}>
                 <span>Explore</span>
-                <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
+                <ArrowRightIcon size={14} className="group-hover:translate-x-1 transition-transform duration-200" />
               </div>
             </button>
           ))}
@@ -374,9 +379,7 @@ export default function EngineeringOS({ onClose }) {
               <button onClick={() => setActiveModule(null)}
                 className="flex items-center gap-1.5 text-text-secondary hover:text-white transition-colors text-sm font-medium"
                 aria-label="Back to home">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
+                <ChevronLeftIcon size={16} />
                 <span className="hidden sm:inline">Back</span>
               </button>
             ) : null}
@@ -400,7 +403,7 @@ export default function EngineeringOS({ onClose }) {
               {MODULES.map(m => (
                 <button key={m.id} onClick={() => setActiveModule(m.id)}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-text-secondary hover:text-white hover:bg-bg-secondary transition-all">
-                  <span>{m.icon}</span>
+                  <AppIcon name={m.icon} size={14} />
                   <span>{m.title}</span>
                 </button>
               ))}
@@ -414,9 +417,7 @@ export default function EngineeringOS({ onClose }) {
               <button onClick={() => { setSearchOpen(s => !s); setSearchQuery(''); }}
                 className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs text-text-secondary hover:text-white border border-border hover:border-border transition-all bg-bg/60"
                 aria-label="Search Engineering OS">
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
-                </svg>
+                <SearchIcon size={14} />
                 <span className="hidden sm:inline">Search</span>
               </button>
 
@@ -425,9 +426,7 @@ export default function EngineeringOS({ onClose }) {
                 <div className="absolute right-0 top-full mt-1 w-72 max-w-[calc(100vw-2rem)] rounded-xl border border-border overflow-hidden z-20 shadow-2xl"
                   style={{ backgroundColor: '#0f172a' }}>
                   <div className="flex items-center gap-2 px-3 py-2 border-b border-border">
-                    <svg className="w-3.5 h-3.5 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
-                    </svg>
+                    <SearchIcon size={14} className="text-text-muted" />
                     <input autoFocus value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
                       onKeyDown={e => e.key === 'Escape' && setSearchOpen(false)}
                       placeholder="Search…"
@@ -471,9 +470,7 @@ export default function EngineeringOS({ onClose }) {
               ref={closebtnRef}
               className="w-8 h-8 flex items-center justify-center rounded-lg text-text-muted hover:text-white hover:bg-bg-secondary transition-all"
               aria-label="Close Engineering OS">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <CloseIcon size={16} />
             </button>
           </div>
         </header>
@@ -486,9 +483,9 @@ export default function EngineeringOS({ onClose }) {
               <div className="flex-shrink-0 px-6 md:px-10 py-5 border-b border-border"
                 style={{ backgroundColor: '#172026' }}>
                 <div className="flex items-center gap-3 max-w-5xl">
-                  <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
-                    style={{ backgroundColor: `${currentMod.color}18` }}>
-                    {currentMod.icon}
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ color: currentMod.color, backgroundColor: `${currentMod.color}18` }}>
+                    <AppIcon name={currentMod.icon} size={20} strokeWidth={1.5} />
                   </div>
                   <div>
                     <h2 className="font-bold text-white text-base leading-tight">{currentMod.title}</h2>

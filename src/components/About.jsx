@@ -1,20 +1,24 @@
 import { useEffect, useRef } from 'react';
 import { useReducedMotion } from '../hooks/useReducedMotion';
-import { LocationIcon, MailIcon, PhoneIcon } from './icons';
+import {
+  ArrowRightIcon, AwardIcon, BotIcon, CheckIcon, CodeIcon, DatabaseIcon, DeployIcon,
+  GlobeIcon, GraduationCapIcon, InspectIcon, LayersIcon, LightbulbIcon, LocationIcon,
+  LockIcon, MailIcon, PackageIcon, PhoneIcon, SettingsIcon, ZapIcon,
+} from './icons';
 import { loadGsap } from '../utils/anim';
 
 
 const aboutData = {
   summary: [
-    "I'm a BCE-graduate full-stack engineer who ships production applications, not just side projects. From AI-powered customer support platforms with real-time chat to business management CRMs with fine-grained role-based access control.",
+    "I'm Shivchandar Sah, a Full-Stack Engineer and Computer Engineering graduate from Kathmandu, Nepal. I ship production applications, not just side projects. From AI-powered customer support platforms with real-time chat to business management CRMs with fine-grained role-based access control.",
     'My stack is Node.js + Express on the back, React or Vue on the front, MongoDB or MySQL for data, and Socket.IO when things need to happen live. I take auth seriously, JWT, RBAC, and secure API design are non-negotiable defaults in everything I build.',
     "Degree done, appetite for building: unlimited. When I'm not pushing commits I'm exploring open-source, sharpening system design, and finding better ways to solve problems that actually matter.",
   ],
   stats: [
-    { value: '5+',  label: 'Projects Shipped', icon: '🚀' },
-    { value: '4+',  label: 'Years Coding',      icon: '⚡' },
-    { value: '2',   label: 'Stacks Mastered',   icon: '🛠️' },
-    { value: '10+', label: 'Technologies',      icon: '🌐' },
+    { value: '5+',  label: 'Projects Shipped', icon: <PackageIcon size={24} strokeWidth={1.5} /> },
+    { value: '4+',  label: 'Years Coding',      icon: <CodeIcon    size={24} strokeWidth={1.5} /> },
+    { value: '2',   label: 'Stacks Mastered',   icon: <LayersIcon  size={24} strokeWidth={1.5} /> },
+    { value: '10+', label: 'Technologies',      icon: <GlobeIcon   size={24} strokeWidth={1.5} /> },
   ],
   contact: {
     email:    'sahshivchandar14@gmail.com',
@@ -109,15 +113,15 @@ export default function About() {
               </p>
               <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
                 {[
-                  { icon: '⚡', text: 'Real-time apps with Socket.IO & WebRTC' },
-                  { icon: '🔐', text: 'JWT auth & role-based access control' },
-                  { icon: '🗄️', text: 'MongoDB / MySQL data layers' },
-                  { icon: '🤖', text: 'AI integrations with RAG pipelines' },
-                  { icon: '⚙️', text: 'Business automation & CRM platforms' },
-                  { icon: '🚀', text: 'Deployed on Vercel & Render' },
+                  { icon: <ZapIcon      size={16} />, text: 'Real-time apps with Socket.IO & WebRTC' },
+                  { icon: <LockIcon     size={16} />, text: 'JWT auth & role-based access control' },
+                  { icon: <DatabaseIcon size={16} />, text: 'MongoDB / MySQL data layers' },
+                  { icon: <BotIcon      size={16} />, text: 'AI integrations with RAG pipelines' },
+                  { icon: <SettingsIcon size={16} />, text: 'Business automation & CRM platforms' },
+                  { icon: <DeployIcon   size={16} />, text: 'Deployed on Vercel & Render' },
                 ].map((item) => (
                   <li key={item.text} className="flex items-start gap-2.5 text-sm text-text-secondary">
-                    <span className="text-base leading-snug flex-shrink-0" aria-hidden="true">
+                    <span className="text-accent mt-0.5 flex-shrink-0" aria-hidden="true">
                       {item.icon}
                     </span>
                     {item.text}
@@ -181,7 +185,7 @@ export default function About() {
                       src="/profile-512.webp"
                       srcSet="/profile-512.webp 512w, /profile-1024.webp 1024w"
                       sizes="112px"
-                      alt="Shivchandar Kumar Sah, Full-Stack Engineer from Nepal. Click to view full size"
+                      alt="Shivchandar Sah, Full-Stack Engineer from Nepal. Click to view full size"
                       className="relative w-28 h-28 rounded-2xl object-cover ring-2 ring-accent/30 group-hover/avatar:ring-accent group-hover/avatar:opacity-90 transition-all duration-200"
                       width="112" height="112" loading="lazy" decoding="async" fetchPriority="low"
                     />
@@ -190,9 +194,7 @@ export default function About() {
                       style={{ backgroundColor: 'var(--color-bg-elevated)' }}
                       aria-hidden="true"
                     >
-                      <svg className="w-3 h-3 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16zm1-11v6m-3-3h6" />
-                      </svg>
+                      <InspectIcon size={12} className="text-accent" />
                     </span>
                     <span className="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-accent border-2 border-bg-card group-hover/avatar:hidden"
                       aria-label="Available" />
@@ -201,7 +203,7 @@ export default function About() {
 
                 {/* Name */}
                 <div className="text-center mb-5">
-                  <p className="font-display font-bold text-text-primary text-sm tracking-tight">Shivchandar Kumar Sah</p>
+                  <p className="font-display font-bold text-text-primary text-sm tracking-tight">Shivchandar Sah</p>
                   <p className="text-xs text-text-secondary mt-0.5">Full-Stack Engineer</p>
                   <p className="inline-flex items-center gap-1 text-xs text-text-muted mt-0.5">
                     <LocationIcon size={13} className="text-accent flex-shrink-0" />
@@ -235,13 +237,15 @@ export default function About() {
               </div>
 
               {/* Floating chips — safe inset positioning to avoid viewport clip */}
-              <div className="absolute -top-3 -right-2 px-3 py-1.5 rounded-lg text-xs font-bold text-bg shadow-glow"
+              <div className="absolute -top-3 -right-2 px-3 py-1.5 rounded-lg text-xs font-bold text-bg shadow-glow flex items-center gap-1"
                 style={{ background: 'linear-gradient(135deg,#5eead4,#d99b3b)' }} aria-hidden="true">
-                Open to Work ✓
+                Open to Work
+                <CheckIcon size={12} strokeWidth={3} />
               </div>
-              <div className="absolute -bottom-3 -left-2 px-3 py-1.5 rounded-lg text-xs font-semibold text-text-secondary border border-border max-w-[200px] truncate"
+              <div className="absolute -bottom-3 -left-2 px-3 py-1.5 rounded-lg text-xs font-semibold text-text-secondary border border-border max-w-[200px] flex items-center gap-1.5"
                 style={{ backgroundColor: 'var(--color-bg-elevated)' }} aria-hidden="true">
-                🎓 BCE Graduate · Cosmos College
+                <GraduationCapIcon size={13} className="text-accent flex-shrink-0" />
+                <span className="truncate">BCE Graduate · Cosmos College</span>
               </div>
             </div>
 
@@ -249,7 +253,7 @@ export default function About() {
             <div className="about-reveal grid grid-cols-2 gap-3">
               {aboutData.stats.map((stat) => (
                 <div key={stat.label} className="card text-center py-6 px-3">
-                  <span className="text-2xl mb-2 block" aria-hidden="true">{stat.icon}</span>
+                  <span className="flex justify-center text-accent mb-2" aria-hidden="true">{stat.icon}</span>
                   <p className="font-display font-bold text-2xl text-accent leading-none">
                     {stat.value}
                   </p>
@@ -261,7 +265,9 @@ export default function About() {
             {/* Engineering Mindset Card */}
             <div className="about-reveal card--flat p-4 rounded-xl border border-border">
               <div className="flex items-start gap-3">
-                <span className="text-xl flex-shrink-0" aria-hidden="true">💡</span>
+                <span className="text-accent mt-0.5 flex-shrink-0" aria-hidden="true">
+                  <LightbulbIcon size={20} strokeWidth={1.5} />
+                </span>
                 <div>
                   <p className="text-xs font-bold text-text-primary mb-1">Engineering Mindset</p>
                   <p className="text-xs text-text-secondary leading-relaxed">
@@ -279,7 +285,7 @@ export default function About() {
           <div className="grid md:grid-cols-2 items-center">
             <div className="p-6 md:p-8">
               <div className="flex items-center gap-2 mb-3">
-                <span className="text-base" aria-hidden="true">🏆</span>
+                <AwardIcon size={16} className="text-accent" />
                 <p className="text-xs font-bold text-text-primary">Hackathon Certificate</p>
               </div>
               <p className="text-sm text-text-secondary leading-relaxed mb-5">
@@ -293,7 +299,8 @@ export default function About() {
                 className="btn-ghost text-sm"
                 aria-label="View hackathon certificate"
               >
-                View Certificate →
+                View Certificate
+                <ArrowRightIcon size={15} />
               </a>
             </div>
             <a
@@ -307,7 +314,7 @@ export default function About() {
                 src="/hackathon-880.webp"
                 srcSet="/hackathon-640.webp 640w, /hackathon-880.webp 880w"
                 sizes="(max-width: 768px) 100vw, 50vw"
-                alt="Shivchandar Kumar Sah holding his hackathon certificate for a software project"
+                alt="Shivchandar Sah holding his hackathon certificate for a software project"
                 className="w-full h-48 md:h-72 object-cover object-top hover:opacity-80 transition-opacity duration-200"
                 width="880" height="611"
                 loading="lazy"

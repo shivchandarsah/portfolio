@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { scrollToSection, setClickIntent, clearClickIntent, isClickIntentActive } from '../utils/scroll';
+import { DownloadIcon, SettingsIcon } from './icons';
 
 const brandName = 'Shivchandar';
 
@@ -15,6 +17,8 @@ export default function Navigation({ onOpenEngOS }) {
   const [scrolled, setScrolled]             = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection]   = useState('hero');
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const navRef = useRef(null);
   const clickIntentRef = useRef(null);
 
@@ -30,6 +34,17 @@ export default function Navigation({ onOpenEngOS }) {
      Removed the scroll-handler getBoundingClientRect() loop that forced
      reflow on every scroll event. */
   useEffect(() => {
+    /* The /work/:slug details page has no home sections: drop any stale
+       observer there. HomePage remounts fresh section DOM on every return,
+       so the setup below re-runs per home visit. */
+    if (pathname !== '/') {
+      if (window._sectionObserver) {
+        window._sectionObserver.disconnect();
+        window._sectionObserver = null;
+      }
+      return;
+    }
+
     const ids = ['hero', 'about', 'education', 'work', 'skill', 'contact'];
 
     const setupObserver = () => {
@@ -83,19 +98,21 @@ export default function Navigation({ onOpenEngOS }) {
         window._sectionObserver = null;
       }
     };
-  }, []);
+  }, [pathname]);
 
   /* URL bar stays in sync with the visible section. Fires only when
      activeSection actually changes (not on every scroll tick), so there
-     is no per-tick layout cost. */
+     is no per-tick layout cost. Never runs on dedicated pages (e.g.
+     /work/:slug) whose URLs must not be replaced with a home hash. */
   useEffect(() => {
+    if (pathname !== '/') return;
     const newPath = activeSection === 'hero' ? '/' : `#${activeSection}`;
     const currentHash = window.location.hash || '/';
     const currentPath = currentHash === '' ? '/' : currentHash;
     if (newPath !== currentPath && newPath !== window.location.hash) {
       history.replaceState(null, '', newPath);
     }
-  }, [activeSection]);
+  }, [activeSection, pathname]);
 
   /* CSS-only entrance (no JS paint gate): the .nav-enter animation runs in
      the stylesheet, so the bar is visible even if JS is slow or the tab is
@@ -107,7 +124,7 @@ export default function Navigation({ onOpenEngOS }) {
      once scrolling settles). */
   const scrollTo = (id) => {
     setClickIntent(id);
-    scrollToSection(id);
+    scrollToSection(id, navigate);
     setActiveSection(id);
     /* Lock out IO + scroll-event overrides during smooth-scroll animation.
        1500 ms covers the longest cross-page scroll on most devices. */
@@ -176,7 +193,7 @@ export default function Navigation({ onOpenEngOS }) {
               onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'rgba(94, 234, 212, 0.10)'; e.currentTarget.style.borderColor = 'rgba(94, 234, 212, 0.30)'; }}
               aria-label="Open Engineering OS"
             >
-              <span className="text-[11px]">⚙</span>
+              <SettingsIcon size={13} />
               <span>Eng OS</span>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse ml-0.5" aria-hidden="true" />
             </button>
@@ -187,9 +204,7 @@ export default function Navigation({ onOpenEngOS }) {
               className="btn-ghost text-sm"
               aria-label="Download resume"
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-              </svg>
+              <DownloadIcon size={14} />
               Resume
             </a>
             <button onClick={() => scrollTo('contact')} className="btn-primary text-sm px-5 py-2">
@@ -240,11 +255,12 @@ export default function Navigation({ onOpenEngOS }) {
                 style={{ backgroundColor: 'rgba(94, 234, 212, 0.10)', borderColor: 'rgba(94, 234, 212, 0.30)', color: '#5eead4' }}
                 aria-label="Open Engineering OS"
               >
-                <span>⚙</span>
+                <SettingsIcon size={15} />
                 <span>Engineering OS</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
               </button>
               <a href="/Shivchandar_Kumar_Sah_Resume_Updated.pdf" download className="btn-secondary w-full justify-center py-3.5 text-sm">
+                <DownloadIcon size={15} />
                 Download Resume
               </a>
               <button onClick={() => scrollTo('contact')} className="btn-primary w-full justify-center py-3.5 text-sm">

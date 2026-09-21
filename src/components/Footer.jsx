@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { scrollToSection } from '../utils/scroll';
 import { GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon } from './icons';
 
@@ -42,7 +43,8 @@ const navCols = [
 ];
 
 export default function Footer() {
-  const scrollTo = (id) => scrollToSection(id);
+  const navigate = useNavigate();
+  const scrollTo = (id) => scrollToSection(id, navigate);
 
   return (
     <footer className="border-t border-border" style={{ backgroundColor: 'var(--color-bg-secondary)' }} role="contentinfo">
@@ -57,7 +59,7 @@ export default function Footer() {
               className="inline-flex items-center gap-2.5 mb-4 group" aria-label="Go to top">
               <img
                 src="/profile-512.webp"
-                alt="Shivchandar Kumar Sah profile photo, full-stack software engineer"
+                alt="Shivchandar Sah profile photo, full-stack software engineer"
                 className="w-9 h-9 rounded-full object-cover ring-2 ring-accent/40 group-hover:ring-accent transition-all duration-200"
                 width="36" height="36" loading="lazy" decoding="async"
               />
@@ -69,7 +71,7 @@ export default function Footer() {
             <div className="flex gap-2">
               {socialLinks.map((s) => (
                 <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
-                  aria-label={`Shivchandar Kumar Sah on ${s.name}`}
+                  aria-label={`Shivchandar Sah on ${s.name}`}
                   className="w-9 h-9 rounded-lg border border-border flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent/40 transition-all duration-200"
                   style={{ backgroundColor: 'rgba(94,234,212,0.08)' }}>
                   {s.icon}

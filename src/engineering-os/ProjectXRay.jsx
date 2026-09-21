@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { PROJECTS, XRAY_LAYERS } from './data.js';
+import { AppIcon, ArrowDownIcon, ChevronDownIcon, ChevronUpIcon, InspectIcon } from '../components/icons';
 
 export default function ProjectXRay() {
   const [activeProject, setActiveProject] = useState(PROJECTS[0].id);
@@ -47,7 +48,7 @@ export default function ProjectXRay() {
                 aria-pressed={selectedLayer === layer.id}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-lg">{layer.icon}</span>
+                  <span className="text-text-secondary"><AppIcon name={layer.icon} size={18} /></span>
                   <div className="flex-1 min-w-0">
                     <p className="font-bold text-sm text-white truncate">{layer.label}</p>
                     <div className="flex flex-wrap gap-1 mt-1">
@@ -59,8 +60,8 @@ export default function ProjectXRay() {
                       ))}
                     </div>
                   </div>
-                  <span className="text-text-muted group-hover:text-text-secondary transition-colors text-sm">
-                    {selectedLayer === layer.id ? '▲' : '▼'}
+                  <span className="text-text-muted group-hover:text-text-secondary transition-colors">
+                    {selectedLayer === layer.id ? <ChevronUpIcon size={14} /> : <ChevronDownIcon size={14} />}
                   </span>
                 </div>
               </button>
@@ -70,7 +71,7 @@ export default function ProjectXRay() {
                 <div className="flex justify-center py-1">
                   <div className="flex flex-col items-center gap-0.5">
                     <div className="w-px h-3 bg-bg-card" />
-                    <span className="text-text-muted text-xs">▼</span>
+                    <ArrowDownIcon size={13} className="text-text-muted" />
                   </div>
                 </div>
               )}
@@ -86,7 +87,7 @@ export default function ProjectXRay() {
               <div className="rounded-xl border h-full overflow-y-auto p-6 space-y-5"
                 style={{ backgroundColor: '#0f172a', borderColor: `${layer.color}40` }}>
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl">{layer.icon}</span>
+                  <span style={{ color: layer.color }}><AppIcon name={layer.icon} size={24} strokeWidth={1.5} /></span>
                   <div>
                     <h3 className="font-bold text-white text-base">{layer.label}</h3>
                     <div className="flex flex-wrap gap-1 mt-1">
@@ -129,7 +130,7 @@ export default function ProjectXRay() {
           })() : (
             <div className="rounded-xl border border-border h-full flex flex-col items-center justify-center p-8 text-center"
               style={{ backgroundColor: '#0f172a', minHeight: 300 }}>
-              <span className="text-4xl mb-4">🔬</span>
+              <InspectIcon size={34} strokeWidth={1.5} className="text-text-secondary mb-4" />
               <p className="text-text-secondary font-semibold text-sm mb-1">X-Ray Mode</p>
               <p className="text-text-muted text-xs leading-relaxed max-w-48">
                 Select a layer to decompose {project.title} and understand every engineering decision.

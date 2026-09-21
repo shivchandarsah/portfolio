@@ -17,6 +17,9 @@ const Footer           = lazy(() => import('./components/Footer'));
 /* Lazy-load Engineering OS, keeps initial bundle lean */
 const EngineeringOS = lazy(() => import('./engineering-os/EngineeringOS.jsx'));
 
+/* Dedicated project page — lazy so it never touches the initial bundle */
+const ProjectDetails = lazy(() => import('./components/ProjectDetails'));
+
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
@@ -120,6 +123,11 @@ function App() {
         <Navigation onOpenEngOS={() => setEngOSOpen(true)} />
       </header>
       <Routes>
+        <Route path="/work/:slug" element={
+          <Suspense fallback={null}>
+            <ProjectDetails />
+          </Suspense>
+        } />
         <Route path="*" element={<HomePage />} />
       </Routes>
       {/* Footer is below the fold, streamed in after the hero paints */}
